@@ -93,3 +93,8 @@ chrome.tabs.onRemoved.addListener(function (tabId, removeInfo) {
 		chrome.storage.local.set({["blockedTabs"]: blockedTabs});
 	});
 });
+
+chrome.action.onClicked.addListener(() => {
+	//open options page when extension icon is clicked
+    chrome.runtime.openOptionsPage();
+})

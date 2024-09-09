@@ -8,8 +8,7 @@
   },
   "action": {
     "default_icon": "images/sakura19px.png",
-    "default_title": "Sakura Blocker",
-    "default_popup": "settings.html"
+    "default_title": "Sakura Blocker"
   },
   "background": {
     "service_worker": "background.js"
