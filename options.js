@@ -117,22 +117,22 @@ function loadSettings() {
 }
 
 function saveSettings() {
-	let settings = {};
+	let options = {};
 	
-	settings.mode = $("input[type='radio'][name=mode]:checked").val();
+	options.mode = $("input[type='radio'][name=mode]:checked").val();
 	
 	let domainList = [];
 	$("#domainList").find("input").each(function() {
 		domainList.push($(this).val().trim());
 	});
-	settings.domainList = domainList;
+	options.domainList = domainList;
 
-	settings.baseDelay = parseFloat($("#baseDelay").val());
-	settings.delayIncrement = parseFloat($("#delayIncrement").val());
-	settings.currentDelay = settings.baseDelay;
+	options.baseDelay = parseFloat($("#baseDelay").val());
+	options.delayIncrement = parseFloat($("#delayIncrement").val());
+	options.currentDelay = options.baseDelay;
 	
 	let scheduled = $("#scheduled").prop("checked");
-	settings.scheduled = scheduled;
+	options.scheduled = scheduled;
 	
 	let timetable = [];
 		if(scheduled){
@@ -149,10 +149,10 @@ function saveSettings() {
 			}
 		});
 	}
-	settings.timetable = timetable;
+	options.timetable = timetable;
 	
-	chrome.storage.local.set(settings).then(function(){
-		$("#currentDelay").html(settings.currentDelay);
+	chrome.storage.local.set(options).then(function(){
+		$("#currentDelay").html(options.currentDelay);
 		
 		$("#save").hide();
 		$("#message").show(); 

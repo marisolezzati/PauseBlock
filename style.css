@@ -1,5 +1,4 @@
 body{
-	width: 700px;
 	font-size: 16px;
 }
 
@@ -18,7 +17,19 @@ div{
 legend{
 	font-weight: bold;
 }
+
 .roundButton{
 	border-radius: 22px;
 	border-width: thin;
+}
+
+.title{
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.content {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
 }
