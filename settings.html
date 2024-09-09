@@ -1,0 +1,92 @@
+<html>
+<head>
+	<script src="jquery-3.7.1.min.js"></script>
+	<script src="lib.js"></script>
+	<script src="settings.js"></script>
+	<link rel="stylesheet" href="settings.css" type="text/css" />
+	<title>Settings</title>
+</head>
+
+<body>
+
+	<div id="title">Settings</div>
+  
+	<fieldset>
+		<legend>Mode:</legend>
+
+		<div>
+			<input type="radio" id="blacklist" name="mode" value=0 checked />
+			<label for="blacklist">Blacklist</label>
+		</div>
+		
+		<div>
+			<input type="radio" id="whitelist" name="mode" value=1 />
+			<label for="whitelist">Whitelist</label>
+		</div>
+	</fieldset>
+	
+	<fieldset>
+		<legend>Domain list:</legend>
+		<button id="loadFromHistory">Load top 10 from History</button></li>
+		<div id="domainList"></div>
+		<button id="addDomain" class="roundButton">+</button>
+	</fieldset>
+    
+
+	<fieldset>
+		<legend>Delay Options:</legend>
+		<div>Base delay <input type="number" id="baseDelay" name="baseDelay" min="0" value="0"> seconds.</div>
+		<div>After every access to a site the delay will increse by <input type="number" id="delayIncrement" name="delayIncrement" step=".01" min="0" value="0.00"/> seconds (set to 0 to use always the same delay).</div>
+		<div>Current delay is: <span id="currentDelay"></span> seconds. (It will be restarted to Base dalay at midnight.)<button id="restartDealy">Restart now</button></div>
+	</fieldset>
+	
+  <div>
+  <p><label><input id="scheduled" name="scheduled" type="checkbox" /> Enable the extension ONLY at specific times:</label></p>
+  </div>
+  
+	<fieldset id="timetable">
+		<div>
+			<label><input id="day0" name="day0" type="checkbox" value="0"/>Sunday</label>
+			<input id="fromTime0" name="fromTime0" type="time" min="00:00" max="23:59" value="00:00"/>
+			<input id="toTime0" name="toTime0" type="time" min="00:00" max="23:59" value="23:59" />
+		</div>
+		<div>
+			<label><input id="day1" name="day1" type="checkbox" value="1"/>Monday</label>
+			<input id="fromTime1" name="fromTime1" type="time" min="00:00" max="23:59" value="00:00"/>
+			<input id="toTime1" name="toTime1" type="time" min="00:00" max="23:59" value="23:59" />
+		</div>
+			<div>
+			<label><input id="day2" name="day2" type="checkbox" value="2"/>Tuesday</label>
+			<input id="fromTime2" name="fromTime2" type="time" min="00:00" max="23:59" value="00:00"/>
+			<input id="toTime2" name="toTime2" type="time" min="00:00" max="23:59" value="23:59" />
+		</div>
+			<div>
+			<label><input id="day3" name="day3" type="checkbox" value="3"/>Wednesday</label>
+			<input id="fromTime3" name="fromTime3" type="time" min="00:00" max="23:59" value="00:00"/>
+			<input id="toTime3" name="toTime3" type="time" min="00:00" max="23:59" value="23:59" />
+		</div>
+			<div>
+			<label><input id="day4" name="day4" type="checkbox" value="4"/>Thusday</label>
+			<input id="fromTime4" name="fromTime4" type="time" min="00:00" max="23:59" value="00:00"/>
+			<input id="toTime4" name="toTime4" type="time" min="00:00" max="23:59" value="23:59" />
+		</div>
+			<div>
+			<label><input id="day5" name="day5" type="checkbox" value="5"/>Friday</label>
+			<input id="fromTime5" name="fromTime5" type="time" min="00:00" max="23:59" value="00:00"/>
+			<input id="toTime5" name="toTime5" type="time" min="00:00" max="23:59" value="23:59" />
+		</div>
+			<div>
+			<label><input id="day6" name="day6" type="checkbox" value="6"/>Saturday</label>
+			<input id="fromTime6" name="fromTime6" type="time" min="00:00" max="23:59" value="00:00"/>
+			<input id="toTime6" name="toTime6" type="time" min="00:00" max="23:59" value="23:59" />
+		</div>
+	</fieldset>
+  <div>
+	<button id="save">SAVE</button>
+	<span id="message" style="display: none">Settings saved.</span>
+  </div>
+
+  
+
+</body>
+</html>
