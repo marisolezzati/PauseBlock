@@ -34,8 +34,8 @@ function toogleDay(day) {
 
 
 function restartDealy() {
-	const baseDelay = $("#baseDelay").val();
-	chrome.storage.local.set({delay: baseDelay}).then(() => {
+	const baseDelay = parseFloat($("#baseDelay").val());
+	chrome.storage.local.set({currentDelay: baseDelay}).then(() => {
 		$("#currentDelay").html(baseDelay);
 	});;
 }
@@ -67,15 +67,15 @@ function addNewDomain() {
 }
 
 function loadSettings() {
-	const storageKeys = ["mode", "domainList", "baseDelay", "delayIncrement", "delay", 
+	const storageKeys = ["mode", "domainList", "baseDelay", "delayIncrement", "currentDelay", 
 						"scheduled", "timetable"];
 	chrome.storage.local.get(storageKeys).then((result) => {	
 		if (result.mode){
 			$("#baseDelay").val(result.baseDelay);
 			$("#delayIncrement").val(result.delayIncrement);
 			let currentDelay = 0;
-			if(result.delay){
-				currentDelay = result.delay;
+			if(result.currentDelay){
+				currentDelay = result.currentDelay;
 			}
 			$("#currentDelay").html(currentDelay);
 			if(result.mode ==1){
@@ -127,8 +127,9 @@ function saveSettings() {
 	});
 	settings.domainList = domainList;
 
-	settings.baseDelay = $("#baseDelay").val();
-	settings.delayIncrement = $("#delayIncrement").val();
+	settings.baseDelay = parseFloat($("#baseDelay").val());
+	settings.delayIncrement = parseFloat($("#delayIncrement").val());
+	settings.currentDelay = settings.baseDelay;
 	
 	let scheduled = $("#scheduled").prop("checked");
 	settings.scheduled = scheduled;
@@ -151,6 +152,8 @@ function saveSettings() {
 	settings.timetable = timetable;
 	
 	chrome.storage.local.set(settings).then(function(){
+		$("#currentDelay").html(settings.currentDelay);
+		
 		$("#save").hide();
 		$("#message").show(); 
 		

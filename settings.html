@@ -37,7 +37,9 @@
 		<legend>Delay Options:</legend>
 		<div>Base delay <input type="number" id="baseDelay" name="baseDelay" min="0" value="0"> seconds.</div>
 		<div>After every access to a site the delay will increse by <input type="number" id="delayIncrement" name="delayIncrement" step=".01" min="0" value="0.00"/> seconds (set to 0 to use always the same delay).</div>
-		<div>Current delay is: <span id="currentDelay"></span> seconds. (It will be restarted to Base dalay at midnight.)<button id="restartDealy">Restart now</button></div>
+		<div>Current delay is: <span id="currentDelay"></span> seconds.</div>
+		<div>The delay will be restarted to Base dalay at midnight OR when settings are changed.</div>
+		<div><button id="restartDealy">Restart now</button></div>
 	</fieldset>
 	
   <div>

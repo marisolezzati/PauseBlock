@@ -4,7 +4,7 @@ if( 'undefined' === typeof window){
 
 function checkJunkTab(tab) {
 	if(verifyProtocol(tab.url)){
-		const storageKeys = ["domainList", "mode", "blockedTabs", "delay","delayIncrement", "scheduled", "timetable"];
+		const storageKeys = ["domainList", "mode", "blockedTabs", "baseDelay","currentDelay","delayIncrement", "scheduled", "timetable", "lastDelayReset"];
 		chrome.storage.local.get(storageKeys).then((result) => {
 			let extensionEnabledNow = true;
 			if(result.scheduled){
@@ -37,7 +37,17 @@ function checkJunkTab(tab) {
 					if(siteFound && !whitelistMode || !siteFound && whitelistMode){
 						let storageVars = {};
 						storageVars.blockedTabs = blockedTabs;
-						storageVars.delay = result.delay + result.delayIncrement;
+						if(result.currentDelay && result.currentDelay>0){
+							//check if the currentDealy is updated (if it was reseted to base delay alredy today) 
+							const today = (new Date()).toISOString().split('T')[0];
+							if(!result.lastDelayReset || today>result.lastDelayReset){
+								storageVars.currentDealy = result.baseDelay;
+								storageVars.lastDelayReset = today;
+							}
+							else{
+								storageVars.currentDelay = result.currentDelay + result.delayIncrement;
+							}
+						}
 						let continueURL = "wait.html?url="+tab.url;
 						chrome.storage.local.set(storageVars).then(() => {
 							chrome.tabs.update(tab.id, { url: chrome.runtime.getURL(continueURL) });

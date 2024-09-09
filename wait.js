@@ -15,7 +15,7 @@ window.onload = function() {
 	$('#back').on("click" , function() {
 		chrome.tabs.goBack();
 	});
-	chrome.storage.local.get(["delay"]).then((result) => {
-		wait(result.delay);
+	chrome.storage.local.get(["currentDelay"]).then((result) => {
+		wait(result.currentDelay);
 	});
 };
