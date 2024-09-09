@@ -38,10 +38,10 @@ function checkJunkTab(tab) {
 						let storageVars = {};
 						storageVars.blockedTabs = blockedTabs;
 						if(result.currentDelay && result.currentDelay>0){
-							//check if the currentDealy is updated (if it was reseted to base delay alredy today) 
+							//check if the currentDelay is updated (if it was reseted to base delay alredy today) 
 							const today = (new Date()).toISOString().split('T')[0];
 							if(!result.lastDelayReset || today>result.lastDelayReset){
-								storageVars.currentDealy = result.baseDelay;
+								storageVars.currentDelay = result.baseDelay;
 								storageVars.lastDelayReset = today;
 							}
 							else{
