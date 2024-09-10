@@ -45,7 +45,7 @@ function checkJunkTab(tab) {
 								storageVars.lastDelayReset = today;
 							}
 							else{
-								storageVars.currentDelay = result.currentDelay + result.delayIncrement;
+								storageVars.currentDelay = (result.currentDelay + result.delayIncrement).toFixed(2);
 							}
 						}
 						let continueURL = "wait.html?url="+tab.url;
