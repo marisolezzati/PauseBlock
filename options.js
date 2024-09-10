@@ -33,10 +33,11 @@ function toogleDay(day) {
 }
 
 
-function restartDealy() {
+function restartDelay() {
 	const baseDelay = parseFloat($("#baseDelay").val());
 	chrome.storage.local.set({currentDelay: baseDelay}).then(() => {
 		$("#currentDelay").html(baseDelay);
+		animateButton($("#restartDelay"),2);
 	});;
 }
 
@@ -63,7 +64,15 @@ function loadFromHistory() {
 }
 
 function addNewDomain() {
-  addDomain("");
+	addDomain("");
+}
+
+function animateButton(clickedButton, timeout) {
+	clickedButton.addClass('buttonClicked');
+	
+	setTimeout(function() {
+		clickedButton.removeClass('buttonClicked');
+	}, timeout*1000);
 }
 
 function loadSettings() {
@@ -110,7 +119,7 @@ function loadSettings() {
 			// no data in storage, set default values
 			$("#baseDelay").val(0);
 			$("#delayIncrement").val(0);
-			restartDealy();
+			restartDelay();
 			$("#timetable").prop("disabled", true);
 		}
 	});
@@ -153,21 +162,14 @@ function saveSettings() {
 	
 	chrome.storage.local.set(options).then(function(){
 		$("#currentDelay").html(options.currentDelay);
-		
-		$("#save").hide();
-		$("#message").show(); 
-		
-		setTimeout(function() {
-			$("#message").hide();
-			$("#save").show();
-		}, 1000);
+		animateButton($("#save"),2);
 	});
 }
 
 window.onload = function() {
 	$("#loadFromHistory").on("click", loadFromHistory);
 	$("#addDomain").on("click", addNewDomain);
-	$("#restartDealy").on("click", restartDealy);
+	$("#restartDelay").on("click", restartDelay);
 	$("#save").on("click", saveSettings);
 	$("#scheduled").on("click", toogleScheduled);
 	for(i=0; i<7; i++){

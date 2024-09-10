@@ -33,6 +33,11 @@ button{
 	background-color: aliceblue;
 }
 
+button:hover {
+  background-color: azure; 
+  cursor: pointer;
+}
+
 .textButton {
   border: none;
   color: darkslategray; 
@@ -40,6 +45,13 @@ button{
   text-align: center;
   display: inline-block;
 }
+
+.buttonClicked, .buttonClicked:active {
+  background-color: mistyrose !important;
+  transform: translateY(1px);
+  color: gray; 
+}
+
 
 .roundButton{
 	border-radius: 22px;
