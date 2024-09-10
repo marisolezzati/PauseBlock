@@ -77,7 +77,7 @@ function animateButton(clickedButton, timeout) {
 
 function loadSettings() {
 	const storageKeys = ["mode", "domainList", "baseDelay", "delayIncrement", "currentDelay", 
-						"scheduled", "timetable"];
+						"redirectMode","scheduled", "timetable"];
 	chrome.storage.sync.get(storageKeys).then((result) => {	
 		if (result.mode){
 			$("#baseDelay").val(result.baseDelay);
@@ -92,6 +92,12 @@ function loadSettings() {
 			}
 			else{
 				$("#blacklist").prop("checked", true);
+			}
+			if(result.redirectMode ==1){
+				$("#manualLink").prop("checked", true);
+			}
+			else{
+				$("#autoRedirect").prop("checked", true);
 			}
 			$("#domainList").html("");
 			if (result.domainList && result.domainList.length > 0) {
@@ -138,6 +144,7 @@ function saveSettings() {
 
 	options.baseDelay = parseFloat($("#baseDelay").val());
 	options.delayIncrement = parseFloat($("#delayIncrement").val());
+	options.redirectMode = $("input[type='radio'][name=redirectMode]:checked").val();
 	options.currentDelay = options.baseDelay;
 	
 	let scheduled = $("#scheduled").prop("checked");

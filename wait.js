@@ -1,23 +1,31 @@
 let countdownActive = false;
 
-function constructContinueLink() {
+function continueToWebsite(redirectMode) {
 	const urlParams = new URLSearchParams(window.location.search);
 	const url = urlParams.get('url');
-	$('#continue').html('<a href="'+url+'" id="continueUrl">Continue to '+url+'</a>');
+	if(redirectMode==1){
+		$('#continue').html('<a href="'+url+'" id="continueUrl">Continue to '+url+'</a>');
+	}
+	else{
+		location.href = url;
+	}
 }
 
 function wait() {
-	chrome.storage.sync.get(["currentDelay"]).then((result) => {
+	chrome.storage.sync.get(["currentDelay", "redirectMode"]).then((result) => {
 		let delay = result.currentDelay;
 		countdownActive = true;
-		$('#continue').html('Wait <span id="countdown">'+delay.toFixed(2)+'</span> seconds');
+		$('#continue').html('Wait <span id="countdown"></span> seconds');
+		$('#countdown').html(delay.toFixed(2));
 		let interval = setInterval(function() {
 			if(countdownActive){
 				delay--;
-				$('#continue').html('Wait <span id="countdown">'+delay.toFixed(2)+'</span> seconds');
 				if (delay <= 0) {
-					constructContinueLink();
+					continueToWebsite(result.redirectMode);
 					clearInterval(interval);
+				}
+				else{
+					$('#countdown').html(delay.toFixed(2));
 				}
 			}
 		}, 1000);

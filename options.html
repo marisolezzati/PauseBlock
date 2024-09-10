@@ -42,6 +42,17 @@
 			Delay increment <input type="number" id="delayIncrement" name="delayIncrement" step=".1" min="0"/> 
 			<span class="tooltiptext">After every access to a site the delay will increse by this number of seconds (set it to 0 to use always the same delay). </span>
 		</div>
+		<div>
+			After the delay ends:
+			<div>
+				<input type="radio" id="autoRedirect" name="redirectMode" value=0 checked />
+				<label for="autoRedirect">Redirect automatically to the website.</label>
+			</div>
+			<div>
+				<input type="radio" id="manualLink" name="redirectMode" value=1 />
+				<label for="manualLink">Create a link to continue to the website.</label>
+			</div>
+		</div>
 		<div class="tooltip">
 			The current delay is: <span id="currentDelay"></span> seconds.
 			<span class="tooltiptext">The delay will be restarted to Base dalay at midnight OR when options are changed.</span>
