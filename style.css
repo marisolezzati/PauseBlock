@@ -18,11 +18,6 @@ legend{
 	font-weight: bold;
 }
 
-.roundButton{
-	border-radius: 22px;
-	border-width: thin;
-}
-
 .title{
 	font-size: 20px;
 	font-weight: bold;
@@ -32,4 +27,21 @@ legend{
   margin: auto;
   width: 50%;
   padding: 10px;
+}
+
+button{
+	background-color: aliceblue;
+}
+
+.textButton {
+  border: none;
+  color: darkslategray; 
+  padding: 8px 15px;
+  text-align: center;
+  display: inline-block;
+}
+
+.roundButton{
+	border-radius: 22px;
+	border-width: thin;
 }
