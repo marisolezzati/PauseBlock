@@ -57,3 +57,19 @@ button:hover {
 	border-radius: 22px;
 	border-width: thin;
 }
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  background-color: lightgray;
+  color: black;
+  text-align: center;
+  padding: 5px 5px;
+  border-radius: 3px;
+  position: absolute;
+  z-index: 1;
+  opacity: 0.7;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

@@ -14,14 +14,16 @@
 	<fieldset>
 		<legend>Mode:</legend>
 
-		<div>
+		<div class="tooltip">
 			<input type="radio" id="blacklist" name="mode" value=0 checked />
 			<label for="blacklist">Blacklist</label>
+			<span class="tooltiptext">Domains listed in Domain List will be blocked.</span>
 		</div>
 		
-		<div>
+		<div class="tooltip">
 			<input type="radio" id="whitelist" name="mode" value=1 />
 			<label for="whitelist">Whitelist</label>
+			<span class="tooltiptext">All domains NOT listed in Domain List will be blocked.</span>
 		</div>
 	</fieldset>
 	
