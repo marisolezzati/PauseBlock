@@ -118,7 +118,7 @@ function loadSettings() {
 		else{
 			// no data in storage, set default values
 			$("#baseDelay").val(3);
-			$("#delayIncrement").val(0.01);
+			$("#delayIncrement").val(0.1);
 			$("#timetable").prop("disabled", true);
 			saveSettings();
 		}
