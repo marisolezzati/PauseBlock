@@ -4,10 +4,14 @@ if( 'undefined' === typeof window){
 
 function checkJunkTab(tab) {
 	if(verifyProtocol(tab.url)){
-		const storageKeys = ["domainList", "mode", "blockedTabs", "baseDelay","currentDelay","delayIncrement", "scheduled", "timetable", "lastDelayReset"];
+		const storageKeys = ["domainList", "mode", "blockedTabs", "baseDelay","currentDelay","delayIncrement", "scheduled", "timetable", "lastDelayReset", "pausedUntil"];
 		chrome.storage.sync.get(storageKeys).then((result) => {
 			let extensionEnabledNow = true;
-			if(result.scheduled){
+			//check if the extension is temporary paused
+			if(result.pausedUntil && isTemporaryPaused(result.pausedUntil)){
+				extensionEnabledNow = false;
+			}
+			else if(result.scheduled){
 				//the extension has a timetable set, check if it should be enabled at this moment 
 				extensionEnabledNow = shouldBeEnabledNow(result.timetable);
 			}
@@ -74,6 +78,17 @@ function shouldBeEnabledNow(timetable){
 		} 
 	}
 	return false;
+}
+
+function isTemporaryPaused(pausedUntil){
+	const now = new Date();
+	const pausedToDate = new Date(pausedUntil);
+	if(now>pausedToDate){
+		//reset pauseUntil
+		chrome.storage.sync.set({pausedUntil: null});
+		return false;
+	}
+	return true;
 }
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {

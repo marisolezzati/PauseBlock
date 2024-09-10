@@ -4,7 +4,8 @@ function continueToWebsite(redirectMode) {
 	const urlParams = new URLSearchParams(window.location.search);
 	const url = urlParams.get('url');
 	if(redirectMode==1){
-		$('#continue').html('<a href="'+url+'" id="continueUrl">Continue to '+url+'</a>');
+		const textUrl = (url.length<40)? url : (url.substring(0,40)+"...");
+		$('#continue').html('<a href="'+url+'" id="continueUrl">Continue to '+textUrl+'</a>');
 	}
 	else{
 		location.href = url;
@@ -53,9 +54,19 @@ function pauseCountdown() {
 	}
 }
 
+function pauseExtension() {
+	const pausedUntil = new Date((new Date()).getTime() + 600000).toISOString();
+	chrome.storage.sync.set({pausedUntil: pausedUntil}).then(() => {
+		continueToWebsite(0);
+	});
+}
+
 window.onload = function() {
 	$('#back').on("click" , function() {
 		chrome.tabs.goBack();
+	});
+	$('#pause').on("click" , function() {
+		pauseExtension();
 	});
 	if(document.hasFocus()){
 		//only start countdown if the page was not open in background

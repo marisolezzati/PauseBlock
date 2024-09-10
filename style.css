@@ -81,3 +81,26 @@ button:hover {
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.link {
+	background-color: aliceblue;
+	text-align: center;
+    width: 480px;
+    height: 36px;
+}
+
+.even {
+	background-color: azure;
+	text-align: center;
+    width: 480px;
+    height: 36px;
+}
+
+.odd {
+	background-color: aliceblue;
+}
