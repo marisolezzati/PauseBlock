@@ -10,16 +10,9 @@ function verifyProtocol(url){
 function getDomain(url){
 	let domain = "";
 	if(verifyProtocol(url)){
-		let startPos = 0;
-		wwwPos = url.indexOf("www.");
-		if(wwwPos>0){
-			startPos = wwwPos+4;
-		}
-		else{
-			startPos = url.indexOf("://")+3;
-		}
-		const endPos = url.indexOf("/", startPos);
-		domain = url.substring(startPos, endPos);
+		const wwwPos = url.indexOf("www.");
+		const startPos = (wwwPos>0) ? wwwPos+4: url.indexOf("://")+3;
+		domain = url.substring(startPos, url.indexOf("/", startPos));
 	}
 	return domain;
 }
