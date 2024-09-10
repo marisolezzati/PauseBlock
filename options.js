@@ -35,7 +35,7 @@ function toogleDay(day) {
 
 function restartDelay() {
 	const baseDelay = parseFloat($("#baseDelay").val());
-	chrome.storage.local.set({currentDelay: baseDelay}).then(() => {
+	chrome.storage.sync.set({currentDelay: baseDelay}).then(() => {
 		$("#currentDelay").html(baseDelay);
 		animateButton($("#restartDelay"),2);
 	});;
@@ -78,7 +78,7 @@ function animateButton(clickedButton, timeout) {
 function loadSettings() {
 	const storageKeys = ["mode", "domainList", "baseDelay", "delayIncrement", "currentDelay", 
 						"scheduled", "timetable"];
-	chrome.storage.local.get(storageKeys).then((result) => {	
+	chrome.storage.sync.get(storageKeys).then((result) => {	
 		if (result.mode){
 			$("#baseDelay").val(result.baseDelay);
 			$("#delayIncrement").val(result.delayIncrement);
@@ -160,7 +160,7 @@ function saveSettings() {
 	}
 	options.timetable = timetable;
 	
-	chrome.storage.local.set(options).then(function(){
+	chrome.storage.sync.set(options).then(function(){
 		$("#currentDelay").html(options.currentDelay);
 		animateButton($("#save"),2);
 	});

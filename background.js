@@ -5,7 +5,7 @@ if( 'undefined' === typeof window){
 function checkJunkTab(tab) {
 	if(verifyProtocol(tab.url)){
 		const storageKeys = ["domainList", "mode", "blockedTabs", "baseDelay","currentDelay","delayIncrement", "scheduled", "timetable", "lastDelayReset"];
-		chrome.storage.local.get(storageKeys).then((result) => {
+		chrome.storage.sync.get(storageKeys).then((result) => {
 			let extensionEnabledNow = true;
 			if(result.scheduled){
 				//the extension has a timetable set, check if it should be enabled at this moment 
@@ -49,7 +49,7 @@ function checkJunkTab(tab) {
 							}
 						}
 						let continueURL = "wait.html?url="+tab.url;
-						chrome.storage.local.set(storageVars).then(() => {
+						chrome.storage.sync.set(storageVars).then(() => {
 							chrome.tabs.update(tab.id, { url: chrome.runtime.getURL(continueURL) });
 						});;
 					} 
@@ -84,13 +84,13 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 
 chrome.tabs.onRemoved.addListener(function (tabId, removeInfo) {
   //Remove tab Id from blockedTabs Array
-  chrome.storage.local.get(["blockedTabs"]).then((result) => {
+  chrome.storage.sync.get(["blockedTabs"]).then((result) => {
 		let blockedTabs = result.blockedTabs;
 		if ((typeof(blockedTabs) == "undefined")) {
 			blockedTabs = [];
 		}
 		blockedTabs = blockedTabs.filter(t => t.id !== tabId)
-		chrome.storage.local.set({["blockedTabs"]: blockedTabs});
+		chrome.storage.sync.set({["blockedTabs"]: blockedTabs});
 	});
 });
 
