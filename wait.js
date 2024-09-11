@@ -56,19 +56,9 @@ function pauseCountdown() {
 	}
 }
 
-function pauseExtension() {
-	const pausedUntil = new Date((new Date()).getTime() + 600000).toISOString();
-	chrome.storage.sync.set({pausedUntil: pausedUntil}).then(() => {
-		continueToWebsite(0);
-	});
-}
-
 window.onload = function() {
 	$('#back').on("click" , function() {
 		chrome.tabs.goBack();
-	});
-	$('#pause').on("click" , function() {
-		pauseExtension();
 	});
 	if(document.hasFocus()){
 		//only start countdown if the page was not open in background

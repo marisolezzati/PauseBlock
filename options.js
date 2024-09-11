@@ -173,12 +173,20 @@ function saveSettings() {
 	});
 }
 
+function pauseExtension() {
+	const pausedUntil = new Date((new Date()).getTime() + 600000).toISOString();
+	chrome.storage.sync.set({pausedUntil: pausedUntil}).then(() => {
+		continueToWebsite(0);
+	});
+}
+
 window.onload = function() {
 	$("#loadFromHistory").on("click", loadFromHistory);
 	$("#addDomain").on("click", addNewDomain);
 	$("#restartDelay").on("click", restartDelay);
 	$("#save").on("click", saveSettings);
 	$("#scheduled").on("click", toogleScheduled);
+	$('#pause').on("click" , pauseExtension);
 	for(i=0; i<7; i++){
 		$("#day"+i).on("click", function() {
 			toogleDay($(this).val());
