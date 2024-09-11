@@ -1,4 +1,5 @@
 let countdownActive = false;
+let delay;
 
 function continueToWebsite(redirectMode) {
 	const urlParams = new URLSearchParams(window.location.search);
@@ -14,7 +15,7 @@ function continueToWebsite(redirectMode) {
 
 function wait() {
 	chrome.storage.sync.get(["currentDelay", "redirectMode"]).then((result) => {
-		let delay = result.currentDelay;
+		delay = result.currentDelay;
 		countdownActive = true;
 		$('#continue').html('Wait <span id="countdown"></span> seconds');
 		$('#countdown').html(delay.toFixed(2));
@@ -25,9 +26,6 @@ function wait() {
 					continueToWebsite(result.redirectMode);
 					clearInterval(interval);
 				}
-				else{
-					$('#countdown').html(delay.toFixed(2));
-				}
 			}
 		}, 1000);
 	});
@@ -37,8 +35,12 @@ function restartCountdown() {
 	//if continueUrl exists means that the countdown alredy finished, check for countdown if it dosen't exists
 	if($('#continueUrl').length==0){
 		if($('#countdown').length>0){
-			//countdown span exists, the counter is started but paused
-			countdownActive = true;
+			//countdown span exists, the counter is started but paused, reset
+			chrome.storage.sync.get(["currentDelay"]).then((result) => {
+				delay = result.currentDelay;
+				$('#countdown').html(delay.toFixed(2));
+				countdownActive = true;
+			});
 		}
 		else{
 			//countdown span and continueUrl don't exists, the counter is not started yet
