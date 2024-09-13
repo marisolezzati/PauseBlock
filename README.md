@@ -1,1 +1,1 @@
-# SakuraBlocker
+#Pause Block - Delay distracting websites.

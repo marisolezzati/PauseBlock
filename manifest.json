@@ -1,14 +1,14 @@
 {
-  "name": "Sakura Blocker",
+  "name": "Pause Block",
   "version": "1.0",
   "manifest_version": 3,
-  "description": "Block/pause junk sites.",
+  "description": "Pause Block - Delay distracting websites.",
   "icons": {
-    "128": "images/sakura128px.png"
+    "128": "images/icon.png"
   },
   "action": {
-    "default_icon": "images/sakura19px.png",
-    "default_title": "Sakura Blocker"
+    "default_icon": "images/icon.png",
+    "default_title": "Pause Block"
   },
   "background": {
     "service_worker": "background.js"
