@@ -26,9 +26,23 @@ function checkJunkTab(tab) {
 					blockedTabs = [];
 				}
 				//find if this tab alredy waited with the same url
-				let alredyWaited = blockedTabs.filter(t => t.id === tab.id && t.url === tab.url);
-				if(alredyWaited.length==0){
-					blockedTabs.push({id: tab.id, url: tab.url});
+				let alredyWaited = blockedTabs.filter(t => t.id === tab.id);
+				let applyRestriction = true;
+				if(alredyWaited.length>0){
+					let waitUntilTime = new Date(alredyWaited[0].time); 
+					waitUntilTime.setSeconds(waitUntilTime.getSeconds() + result.currentDelay + 10);//10 + delay to avoid double wait in redirect situations
+					if(((new Date()) - waitUntilTime)< 0){
+						//if waitUntilTime is in the future do not apply restriction
+						applyRestriction = false;
+					}
+					else{
+						//waiting time exceded remove tab
+						blockedTabs = blockedTabs.filter(t => t.id !== tab.id);
+					}
+				}
+				if(applyRestriction){
+					const now = (new Date()).toISOString();
+					blockedTabs.push({id: tab.id, url: tab.url, time: now});
 					const whitelistMode = (result.mode ==1) ? true: false;
 					let siteFound = false;
 					for (var i = 0; i < domainList.length; i++) {
