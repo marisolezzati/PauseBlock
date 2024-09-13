@@ -176,7 +176,7 @@ function saveSettings() {
 function pauseExtension() {
 	const pausedUntil = new Date((new Date()).getTime() + 600000).toISOString();
 	chrome.storage.sync.set({pausedUntil: pausedUntil}).then(() => {
-		continueToWebsite(0);
+		animateButton($("#pause"),2);
 	});
 }
 
