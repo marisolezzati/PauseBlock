@@ -4,6 +4,7 @@ let delay;
 function continueToWebsite(redirectMode) {
 	const urlParams = new URLSearchParams(window.location.search);
 	const url = urlParams.get('url');
+	saveText();
 	if(redirectMode==1){
 		const textUrl = (url.length<40)? url : (url.substring(0,40)+"...");
 		$('#continue').html('<a href="'+url+'" id="continueUrl">Continue to '+textUrl+'</a>');
@@ -13,10 +14,18 @@ function continueToWebsite(redirectMode) {
 	}
 }
 
+function saveText() {
+	const waitText = $('#waitText').html();
+	chrome.storage.sync.set({"waitText": waitText});
+}
+
 function wait() {
-	chrome.storage.sync.get(["currentDelay", "redirectMode"]).then((result) => {
+	chrome.storage.sync.get(["currentDelay", "redirectMode", "waitText"]).then((result) => {
 		delay = result.currentDelay;
 		countdownActive = true;
+		if(result.waitText){
+			$('#waitText').html(result.waitText);
+		}
 		$('#continue').html('Wait <span id="countdown"></span> seconds');
 		$('#countdown').html(delay.toFixed(2));
 		let interval = setInterval(function() {

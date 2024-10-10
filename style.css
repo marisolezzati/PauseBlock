@@ -23,6 +23,13 @@ legend{
 	font-weight: bold;
 }
 
+.waitText{
+	font-size: 20px;
+	font-weight: bold;
+	width: 485px;
+	height:100px;
+}
+
 .content {
   margin: auto;
   width: 50%;
